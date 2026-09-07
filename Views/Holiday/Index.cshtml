@@ -1,0 +1,247 @@
+﻿@model List<EmployeeLeavePortal.Models.Holiday>
+
+@{
+    ViewData["Title"] = "Holiday Calendar";
+
+    string selectedCountry = ViewBag.CountryCode ?? "IN";
+    int selectedYear = ViewBag.Year ?? DateTime.Now.Year;
+}
+
+<div class="page-header">
+    <div>
+        <h2>
+            <i class="bi bi-calendar3"></i>
+            Holiday Calendar
+        </h2>
+
+        <p>
+            View public holidays using real-time REST API data.
+        </p>
+    </div>
+</div>
+
+<div class="content-card holiday-filter-card">
+
+    <form asp-controller="Holiday"
+          asp-action="Index"
+          method="get">
+
+        <div class="row g-3 align-items-end">
+
+            <div class="col-md-5">
+
+                <label class="form-label">
+                    Country
+                </label>
+
+                <select name="countryCode"
+                        class="form-select">
+
+                    <option value="IN"
+                            selected="@(selectedCountry == "IN")">
+                        India
+                    </option>
+
+                    <option value="US"
+                            selected="@(selectedCountry == "US")">
+                        United States
+                    </option>
+
+                    <option value="GB"
+                            selected="@(selectedCountry == "GB")">
+                        United Kingdom
+                    </option>
+
+                    <option value="AU"
+                            selected="@(selectedCountry == "AU")">
+                        Australia
+                    </option>
+
+                    <option value="CA"
+                            selected="@(selectedCountry == "CA")">
+                        Canada
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label class="form-label">
+                    Year
+                </label>
+
+                <select name="year"
+                        class="form-select">
+
+                    @for (int year = 2024; year <= 2030; year++)
+                    {
+                        <option value="@year"
+                                selected="@(selectedYear == year)">
+                            @year
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
+
+                    <i class="bi bi-search"></i>
+
+                    Load Holidays
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger mt-4">
+
+        <i class="bi bi-exclamation-triangle-fill"></i>
+
+        @ViewBag.ErrorMessage
+
+    </div>
+}
+
+<div class="content-card mt-4">
+
+    <div class="card-header-custom">
+
+        <div>
+            <h5>
+                <i class="bi bi-calendar-event"></i>
+                Public Holidays
+            </h5>
+
+            <span>
+                @selectedYear
+            </span>
+        </div>
+
+        <div class="holiday-count">
+
+            @Model.Count holidays
+
+        </div>
+
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+
+            <table class="table professional-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Holiday
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Country
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var holiday in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                <span class="holiday-number">
+                                    @(Model.IndexOf(holiday) + 1)
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <div class="holiday-name">
+
+                                    <div class="holiday-icon">
+                                        <i class="bi bi-calendar-heart"></i>
+                                    </div>
+
+                                    <strong>
+                                        @holiday.Name
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                <span class="holiday-date">
+
+                                    <i class="bi bi-calendar2-date"></i>
+
+                                    @holiday.Date
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span class="country-badge">
+                                    @holiday.Country
+                                </span>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+
+            <i class="bi bi-calendar-x"></i>
+
+            <h5>
+                No holidays found
+            </h5>
+
+            <p>
+                Try selecting another country or year.
+            </p>
+
+        </div>
+    }
+
+</div>

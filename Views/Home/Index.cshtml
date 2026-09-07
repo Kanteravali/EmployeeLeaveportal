@@ -1,0 +1,408 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+
+    var recentRequests =
+        ViewBag.RecentRequests as List<EmployeeLeavePortal.Models.LeaveRequest>
+        ?? new List<EmployeeLeavePortal.Models.LeaveRequest>();
+
+    var employees =
+        ViewBag.Employees as List<EmployeeLeavePortal.Models.Employee>
+        ?? new List<EmployeeLeavePortal.Models.Employee>();
+}
+
+<div class="dashboard-page">
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-heading">
+
+        <div>
+            <h2>Dashboard</h2>
+
+            
+        </div>
+
+    </div>
+
+
+    <!-- Statistics Cards -->
+    <div class="row dashboard-cards-row">
+
+        <!-- Total Employees -->
+        <div class="col-xl col-lg-4 col-md-6 mb-4">
+
+            <div class="stat-card employee-card">
+
+                <div class="stat-icon employee-stat-icon">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-title">
+                        Total Employees
+                    </div>
+
+                    <div class="stat-number">
+                        @ViewBag.TotalEmployees
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Total Leave Requests -->
+        <div class="col-xl col-lg-4 col-md-6 mb-4">
+
+            <div class="stat-card request-card">
+
+                <div class="stat-icon request-stat-icon">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-title">
+                        Total Leave Requests
+                    </div>
+
+                    <div class="stat-number">
+                        @ViewBag.TotalLeaveRequests
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending -->
+        <div class="col-xl col-lg-4 col-md-6 mb-4">
+
+            <div class="stat-card pending-card">
+
+                <div class="stat-icon pending-stat-icon">
+                    <i class="bi bi-person-fill"></i>
+
+                    <span class="small-card-icon">
+                        <i class="bi bi-clock-fill"></i>
+                    </span>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-title">
+                        Pending Requests
+                    </div>
+
+                    <div class="stat-number">
+                        @ViewBag.PendingRequests
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Approved -->
+        <div class="col-xl col-lg-4 col-md-6 mb-4">
+
+            <div class="stat-card approved-card">
+
+                <div class="stat-icon approved-stat-icon">
+                    <i class="bi bi-person-fill"></i>
+
+                    <span class="small-card-icon">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </span>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-title">
+                        Approved Requests
+                    </div>
+
+                    <div class="stat-number">
+                        @ViewBag.ApprovedRequests
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rejected -->
+        <div class="col-xl col-lg-4 col-md-6 mb-4">
+
+            <div class="stat-card rejected-card">
+
+                <div class="stat-icon rejected-stat-icon">
+                    <i class="bi bi-person-fill"></i>
+
+                    <span class="small-card-icon">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </span>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-title">
+                        Rejected Requests
+                    </div>
+
+                    <div class="stat-number">
+                        @ViewBag.RejectedRequests
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Leave Requests -->
+    <div class="recent-requests-card">
+
+        <!-- Section Header -->
+        <div class="recent-header">
+
+            <div class="recent-title-area">
+
+                <div class="recent-clock-icon">
+                    <i class="bi bi-clock"></i>
+                </div>
+
+                <div>
+
+                    <h5>
+                        Recent Leave Requests
+                    </h5>
+
+                    <p>
+                        Latest employee leave activity
+                    </p>
+
+                </div>
+
+            </div>
+
+            <a asp-controller="Leave"
+               asp-action="Index"
+               class="view-all-button">
+
+                View All Requests
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="table-responsive">
+
+            <table class="dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Employee
+                        </th>
+
+                        <th>
+                            Leave Type
+                        </th>
+
+                        <th>
+                            Dates
+                        </th>
+
+                        <th>
+                            Days
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Request Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @if (recentRequests.Any())
+                    {
+                        @foreach (var request in recentRequests)
+                        {
+                            var employee = employees.FirstOrDefault(
+                                e => e.EmployeeId == request.EmployeeId);
+
+                            <tr>
+
+                                <!-- Employee -->
+                                <td>
+
+                                    <div class="dashboard-employee">
+
+                                        <div class="employee-avatar-small">
+
+                                            <svg viewBox="0 0 64 64"
+                                                 class="table-human-icon"
+                                                 xmlns="http://www.w3.org/2000/svg">
+
+                                                <circle cx="32"
+                                                        cy="20"
+                                                        r="10"
+                                                        fill="currentColor" />
+
+                                                <path d="M14 55
+                                                C14 42 21 35 32 35
+                                                C43 35 50 42 50 55
+                                                Z"
+                                                      fill="currentColor" />
+
+                                            </svg>
+
+                                        </div>
+
+                                        <div>
+
+                                            @if (employee != null)
+                                            {
+                                                <div class="employee-name">
+                                                    @employee.FullName
+                                                </div>
+
+                                                <div class="employee-id">
+                                                    @employee.EmployeeId
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="employee-name">
+                                                    Unknown Employee
+                                                </div>
+                                            }
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Leave Type -->
+                                <td>
+
+                                    <span class="leave-type-badge">
+                                        @request.LeaveType
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Dates -->
+                                <td>
+
+                                    <span class="request-date-range">
+
+                                        @request.FromDate.ToString("dd MMM yyyy")
+                                        -
+                                        @request.ToDate.ToString("dd MMM yyyy")
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Days -->
+                                <td>
+
+                                    <span class="days-value">
+                                        @request.TotalLeaveDays
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Status -->
+                                <td>
+
+                                    @if (request.Status == "Pending")
+                                    {
+                                        <span class="status-badge status-pending">
+                                            Pending
+                                        </span>
+                                    }
+                                    else if (request.Status == "Approved")
+                                    {
+                                        <span class="status-badge status-approved">
+                                            Approved
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-rejected">
+                                            Rejected
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- Request Date -->
+                                <td>
+
+                                    @request.RequestDate.ToString("dd MMM yyyy")
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="6"
+                                class="empty-dashboard">
+
+                                <i class="bi bi-inbox"></i>
+
+                                <div>
+                                    No leave requests available.
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

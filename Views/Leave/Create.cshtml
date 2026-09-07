@@ -1,0 +1,305 @@
+﻿@model EmployeeLeavePortal.Models.LeaveRequest
+
+@{
+    ViewData["Title"] = "Create Leave Request";
+
+    var employees = ViewBag.Employees as List<EmployeeLeavePortal.Models.Employee>
+                     ?? new List<EmployeeLeavePortal.Models.Employee>();
+}
+
+<div class="container-fluid py-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">New Leave Request</h2>
+
+            <p class="text-muted mb-0">
+                Submit a new employee leave request
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+            Back to Requests
+
+        </a>
+
+    </div>
+
+
+    <!-- Form Card -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
+            <form asp-action="Create"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger">
+                </div>
+
+
+                <div class="row g-4">
+
+                    <!-- Employee -->
+                    <div class="col-md-6">
+
+                        <label asp-for="EmployeeId"
+                               class="form-label fw-semibold">
+                            Employee
+                        </label>
+
+                        <select asp-for="EmployeeId"
+                                class="form-select">
+
+                            <option value="">
+                                Select Employee
+                            </option>
+
+                            @foreach (var employee in employees)
+                            {
+                                <option value="@employee.EmployeeId">
+
+                                    @employee.FullName
+                                    (@employee.EmployeeId)
+
+                                </option>
+                            }
+
+                        </select>
+
+                        <span asp-validation-for="EmployeeId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Leave Type -->
+                    <div class="col-md-6">
+
+                        <label asp-for="LeaveType"
+                               class="form-label fw-semibold">
+                            Leave Type
+                        </label>
+
+                        <select asp-for="LeaveType"
+                                class="form-select">
+
+                            <option value="">
+                                Select Leave Type
+                            </option>
+
+                            <option value="Sick Leave">
+                                Sick Leave
+                            </option>
+
+                            <option value="Casual Leave">
+                                Casual Leave
+                            </option>
+
+                            <option value="Annual Leave">
+                                Annual Leave
+                            </option>
+
+                            <option value="Work From Home">
+                                Work From Home
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="LeaveType"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- From Date -->
+                    <div class="col-md-4">
+
+                        <label asp-for="FromDate"
+                               class="form-label fw-semibold">
+                            From Date
+                        </label>
+
+                        <input asp-for="FromDate"
+                               type="date"
+                               class="form-control"
+                               id="fromDate" />
+
+                        <span asp-validation-for="FromDate"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- To Date -->
+                    <div class="col-md-4">
+
+                        <label asp-for="ToDate"
+                               class="form-label fw-semibold">
+                            To Date
+                        </label>
+
+                        <input asp-for="ToDate"
+                               type="date"
+                               class="form-control"
+                               id="toDate" />
+
+                        <span asp-validation-for="ToDate"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Total Days -->
+                    <div class="col-md-4">
+
+                        <label class="form-label fw-semibold">
+                            Total Leave Days
+                        </label>
+
+                        <div class="form-control bg-light"
+                             id="totalDays">
+
+                            0 days
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Reason -->
+                    <div class="col-12">
+
+                        <label asp-for="Reason"
+                               class="form-label fw-semibold">
+                            Reason
+                        </label>
+
+                        <textarea asp-for="Reason"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Enter reason for leave...">
+                        </textarea>
+
+                        <span asp-validation-for="Reason"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="border-top mt-4 pt-4">
+
+                    <div class="d-flex gap-2">
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            <i class="bi bi-send"></i>
+                            Submit Leave Request
+
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        function calculateLeaveDays() {
+
+            const fromDate =
+                document.getElementById("fromDate").value;
+
+            const toDate =
+                document.getElementById("toDate").value;
+
+            const totalDays =
+                document.getElementById("totalDays");
+
+            if (!fromDate || !toDate) {
+
+                totalDays.textContent = "0 days";
+
+                return;
+            }
+
+            const from =
+                new Date(fromDate);
+
+            const to =
+                new Date(toDate);
+
+            if (to < from) {
+
+                totalDays.textContent =
+                    "Invalid date range";
+
+                return;
+            }
+
+            const difference =
+                to.getTime() - from.getTime();
+
+            const days =
+                Math.floor(
+                    difference / (1000 * 60 * 60 * 24)
+                ) + 1;
+
+            totalDays.textContent =
+                days + (days === 1 ? " day" : " days");
+        }
+
+
+        document
+            .getElementById("fromDate")
+            .addEventListener(
+                "change",
+                calculateLeaveDays
+            );
+
+
+        document
+            .getElementById("toDate")
+            .addEventListener(
+                "change",
+                calculateLeaveDays
+            );
+
+    </script>
+}

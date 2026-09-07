@@ -1,0 +1,68 @@
+[
+  {
+    "RequestId": 1,
+    "EmployeeId": "EMP-001",
+    "LeaveType": "Sick Leave",
+    "FromDate": "2026-09-10T00:00:00",
+    "ToDate": "2026-09-12T00:00:00",
+    "Reason": "Not feeling well",
+    "Status": "Approved",
+    "RequestDate": "2026-09-03T00:00:00",
+    "TotalLeaveDays": 3
+  },
+  {
+    "RequestId": 2,
+    "EmployeeId": "EMP-002",
+    "LeaveType": "Casual Leave",
+    "FromDate": "2026-09-15T00:00:00",
+    "ToDate": "2026-09-16T00:00:00",
+    "Reason": "Personal work",
+    "Status": "Approved",
+    "RequestDate": "2026-09-01T00:00:00",
+    "TotalLeaveDays": 2
+  },
+  {
+    "RequestId": 3,
+    "EmployeeId": "EMP-003",
+    "LeaveType": "Work From Home",
+    "FromDate": "2026-09-20T00:00:00",
+    "ToDate": "2026-09-20T00:00:00",
+    "Reason": "Personal reasons",
+    "Status": "Rejected",
+    "RequestDate": "2026-09-02T00:00:00",
+    "TotalLeaveDays": 1
+  },
+  {
+    "RequestId": 4,
+    "EmployeeId": "EMP-005",
+    "LeaveType": "Annual Leave",
+    "FromDate": "2026-09-03T00:00:00",
+    "ToDate": "2026-09-22T00:00:00",
+    "Reason": "sdfghjklgfdsa",
+    "Status": "Rejected",
+    "RequestDate": "2026-09-03T12:37:01.4388567+05:30",
+    "TotalLeaveDays": 20
+  },
+  {
+    "RequestId": 5,
+    "EmployeeId": "Emp-008",
+    "LeaveType": "Casual Leave",
+    "FromDate": "2026-09-23T00:00:00",
+    "ToDate": "2026-09-24T00:00:00",
+    "Reason": "Family Function",
+    "Status": "Approved",
+    "RequestDate": "2026-09-03T12:38:43.1042719+05:30",
+    "TotalLeaveDays": 2
+  },
+  {
+    "RequestId": 6,
+    "EmployeeId": "EMP-001",
+    "LeaveType": "Sick Leave",
+    "FromDate": "2026-09-11T00:00:00",
+    "ToDate": "2026-09-13T00:00:00",
+    "Reason": "fghjkl;",
+    "Status": "Approved",
+    "RequestDate": "2026-09-03T12:39:43.1936406+05:30",
+    "TotalLeaveDays": 3
+  }
+]

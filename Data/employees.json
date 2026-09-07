@@ -1,0 +1,66 @@
+[
+  {
+    "EmployeeId": "EMP-001",
+    "FullName": "Rahul Kumar",
+    "Department": "Engineering",
+    "Email": "rahul.kumar@example.com",
+    "Designation": "Software Engineer 2",
+    "JoinDate": "2024-01-15T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP-002",
+    "FullName": "Priya Sharma",
+    "Department": "HR",
+    "Email": "priya.sharma@example.com",
+    "Designation": "HR Executive",
+    "JoinDate": "2023-06-10T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP-003",
+    "FullName": "Arun Patel",
+    "Department": "Operations",
+    "Email": "arun.patel@example.com",
+    "Designation": "Operations Engineer",
+    "JoinDate": "2022-09-20T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP-004",
+    "FullName": "Sneha Rao",
+    "Department": "Finance",
+    "Email": "sneha.rao@example.com",
+    "Designation": "Accountant",
+    "JoinDate": "2023-03-05T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP-005",
+    "FullName": "Vikram Singh",
+    "Department": "Engineering",
+    "Email": "vikram.singh@example.com",
+    "Designation": "Senior Developer",
+    "JoinDate": "2021-11-12T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP-007",
+    "FullName": "Ravali kante",
+    "Department": "Engineering",
+    "Email": "abc@gmail.com",
+    "Designation": "Unity developer",
+    "JoinDate": "2026-09-03T00:00:00"
+  },
+  {
+    "EmployeeId": "Emp-008",
+    "FullName": "jaanu",
+    "Department": "Operations",
+    "Email": "abcdf@gmail.com",
+    "Designation": "software",
+    "JoinDate": "2026-09-11T00:00:00"
+  },
+  {
+    "EmployeeId": "EMP009",
+    "FullName": "ghk",
+    "Department": "Finance",
+    "Email": "dfg@gmail.com",
+    "Designation": "RM",
+    "JoinDate": "2026-09-05T00:00:00"
+  }
+]
